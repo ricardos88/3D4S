@@ -1,0 +1,119 @@
+file begin
+
+section problemCase
+dimensions 1
+equation euler
+problem shockTube
+start	initial
+end
+
+section methods
+fluxSplitting	roe_hll
+entropyFix	harten
+reconstruction	weno5cw
+fluxLimiter	Minmod
+correction	WENOJS
+difusive	fdm4
+timeIntegration	explicitEuler
+nonLinear	TS
+end
+
+section parameters
+dt	1.E-6
+dtau	1.E-6
+ti	0.0
+tf	1.E-2
+end
+
+section mesh
+nx	501
+end
+
+section domain
+xL	-10.0
+xR	10.0
+perio_x no
+end
+
+section fluid
+fluid	air
+EqOfState idealGas
+viscosity SutherlandViscosityLaw3C
+end
+
+section flow
+rho	1.184
+P	101325.0
+u	0.0
+T	300.0
+Ma	0.0
+Re	50.0
+Pr	0.72
+end
+
+section reconstruction
+beta	1.0
+eps	1.E-6
+end
+
+section jacobian
+coloring no
+local	yes
+end
+
+section Newton
+NMI	100
+tol	1.E-12
+end
+
+section pseudo
+NMI	1000
+tol	1.E-12
+end
+
+section GCN
+theta1	1.0
+theta2	1.0
+THETA1	1.0
+THETA2	1.0
+end
+
+section SDIRK
+alpha	5.0
+end
+
+section buffer
+use	no
+size	2.0
+alpha	1.E3
+beta	3
+end
+
+section perturbation
+use	no
+position 2.0
+amplitude 1.E-6
+end
+
+section source
+use	no
+R	1.0
+end
+
+section boostConv
+use	no
+NSubspace 15
+NStep	100
+start	0.05
+end
+
+section output
+numberOutTime	100
+numberOutFile	100
+numberOutNorm	100
+numberOutPseudo	100
+numberOfSimulations 6
+end
+
+file end
+
